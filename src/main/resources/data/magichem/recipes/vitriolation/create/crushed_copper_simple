@@ -1,0 +1,32 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:mod_loaded",
+                    "modid": "create"
+                }
+            ],
+            "recipe": {
+                "type": "magichem:vitriolation",
+                "minimumAcidStrength": 0,
+                "inputFluidOverride": "magichem:simple_acid",
+                "acidConsumed": 20,
+                "duration": 80,
+                "inputItem": {
+                    "item": "create:crushed_raw_copper",
+                    "count": 1
+                },
+                "resultItem": {
+                    "item": "minecraft:clay_ball",
+                    "count": 1
+                },
+                "resultFluid": {
+                    "fluid": "magichem:liquefacted_copper",
+                    "amount": 200
+                }
+            }
+        }
+    ]
+}
