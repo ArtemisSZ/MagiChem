@@ -45,6 +45,7 @@ public class MateriaItem extends Item {
         this.color = Integer.parseInt(color, 16) | 0xFF000000;
     }
 
+    
     public String getMateriaName() {
         return this.name;
     }
@@ -58,6 +59,16 @@ public class MateriaItem extends Item {
     }
 
     public String getDisplayFormula() { return "?"; }
+//new code
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static <T extends Comparable<T>> BlockState copyProperty(
+        net.minecraft.world.level.block.state.properties.Property<T> property,
+        BlockState from,
+        BlockState to
+    ) {
+    return to.setValue(property, from.getValue(property));
+    }
+
 
     @Override
     public InteractionResult useOn(UseOnContext pContext) {
@@ -75,16 +86,14 @@ public class MateriaItem extends Item {
                         if (ar.getChance() >= 100f || r.nextFloat(100) <= ar.getChance()) {
                             BlockState newState = ar.getResult().defaultBlockState();
 
-                            if (targetState.hasProperty(FACING))
-                                newState = newState.setValue(FACING, targetState.getValue(FACING));
-                            if (targetState.hasProperty(HORIZONTAL_FACING))
-                                newState = newState.setValue(HORIZONTAL_FACING, targetState.getValue(HORIZONTAL_FACING));
-                            if (targetState.hasProperty(HALF))
-                                newState = newState.setValue(HALF, targetState.getValue(HALF));
-                            if (targetState.hasProperty(STAIRS_SHAPE))
-                                newState = newState.setValue(STAIRS_SHAPE, targetState.getValue(STAIRS_SHAPE));
-                            if (targetState.hasProperty(WATERLOGGED))
-                                newState = newState.setValue(WATERLOGGED, targetState.getValue(WATERLOGGED));
+            
+
+                            for (var property : targetState.getProperties()) {
+                                if (newState.hasProperty(property)) {
+                                    newState = copyProperty(property, targetState, newState);
+                                }
+                        }
+
 
                             pContext.getLevel().setBlock(pContext.getClickedPos(), newState, 3);
                             pContext.getLevel().sendBlockUpdated(pContext.getClickedPos(), targetState, newState, 3);
