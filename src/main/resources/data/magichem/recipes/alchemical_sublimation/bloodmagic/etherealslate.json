@@ -12,7 +12,7 @@
                 "type": "magichem:sublimation",
                 "tier": 3,
                 "wisdom": 3,
-                "required_advancement": "magichem:material_unlocks/bloodmagic/infused_slate",
+                "required_advancement": "magichem:material_unlocks/bloodmagic/ethereal_slate",
                 "object": {
                     "item": "bloodmagic:etherealslate",
                     "count": 1
